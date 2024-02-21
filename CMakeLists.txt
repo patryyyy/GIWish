@@ -1,0 +1,23 @@
+cmake_minimum_required(VERSION 3.21)
+project(GIWish)
+
+set(CMAKE_CXX_STANDARD 11)
+
+if(MSVC)
+    set(CMAKE_CXX_FLAGS "/utf-8")
+#    set(CMAKE_EXE_LINKER_FLAGS    "${CMAKE_EXE_LINKER_FLAGS} /MANIFEST:NO")
+#    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /MANIFEST:NO")
+#    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /MANIFEST:NO")
+endif ()
+
+#set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/build)
+#if (MSVC)
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/build)
+#set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/build)
+#endif ()
+
+file(GLOB_RECURSE src CONFIGURE_DEPENDS src/*.cpp include/*.h)
+
+add_executable(GIWish ${src})
+
+target_include_directories(GIWish PUBLIC "include")
