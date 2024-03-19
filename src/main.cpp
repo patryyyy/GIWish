@@ -1,5 +1,5 @@
 #include <iostream>
-#include <GIWish/cmdline/cmdline.h>
+#include <cmdline/cmdline.h>
 #include <GIWish/wish.h>
 
 #ifdef _WIN32
@@ -26,24 +26,27 @@ int main(int argc, char **argv) {
     return 0;
   }
 
-  GIWish::WishManager wish_manager
-      {parser.get<double>("pfive"), parser.get<double>("pfour"), parser.get<double>("pthree"), 0, 0, 0, false, false};
-  GIWish::WishInfo wish_info;
+  GIWish::CharactersWish ch_wish{parser.get<double>("pfive"),
+                                 parser.get<double>("pfour"),
+                                 parser.get<double>("pthree"),
+                                 0,
+                                 0,
+                                 false,
+                                 false};
+  GIWish::CharactersWishInfo result;
 
   while (true) {
-    START_WISH:
-
     for (int i = 0; i < parser.get<int>("times"); ++i) {
-      wish_manager.wish(wish_info);
-      switch (wish_info.level) {
+      ch_wish.wish(result);
+      switch (result.level) {
         case GIWish::FIVE_STAR:
-          std::printf("Level: %s\t Name: %s\n", "★★★★★", wish_info.name.c_str());
+          std::printf("Times: %d\t Level: ★★★★★\t Name: %s\n", result.times, result.name.c_str());
           break;
         case GIWish::FOUR_STAR:
-          std::printf("Level: %s\t Name: %s\n", "★★★★", wish_info.name.c_str());
+          std::printf("Times: %d\t Level: ★★★★\t Name: %s\n", result.times, result.name.c_str());
           break;
         case GIWish::THREE_STAR:
-          std::printf("Level: %s\t Name: %s\n", "★★★", wish_info.name.c_str());
+          std::printf("Times: %d\t Level: ★★★\t Name: %s\n", result.times, result.name.c_str());
           break;
       }
     }
@@ -52,9 +55,11 @@ int main(int argc, char **argv) {
 
     int c = std::cin.get();
     if (c == '\n') {
-      goto START_WISH;
+      continue;
     } else {
       exit(0);
     }
   }
+
+  return 0;
 }
