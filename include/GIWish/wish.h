@@ -1,38 +1,11 @@
-#ifndef WISH_H
-#define WISH_H
+#ifndef GIWISH_WISH_H_
+#define GIWISH_WISH_H_
 
-#include <vector>
-#include <random>
-#include <ctime>
+#include <GIWish/ch_wish.h>
 
-namespace GIWish {
-const int UP = 0;
-const int STANDARD = 1;
-const int WEAPONS = 0;
-const int CHARACTERS = 1;
-const int WISH_OK = 1;
-const int WISH_ERR = 0;
+static std::string five_star_up_characters{"闲云"};
 
-enum Level {
-  FIVE_STAR,
-  FOUR_STAR,
-  THREE_STAR
-};
-
-struct WishInfo {
-  std::time_t time;
-  std::string format_time;
-  std::string name;
-  Level level;
-};
-
-struct WishHistory {
-  std::vector<WishInfo> wh;
-};
-
-const std::string five_star_up_characters{"闲云"};
-
-const std::vector<std::string> five_star_characters{
+static const std::vector<std::string> five_star_characters{
     "提纳里",
     "莫娜",
     "迪卢克",
@@ -42,13 +15,13 @@ const std::vector<std::string> five_star_characters{
     "琴"
 };
 
-const std::vector<std::string> four_star_up_characters{
+static const std::vector<std::string> four_star_up_characters{
     "嘉明",
     "珐露珊",
     "诺艾尔"
 };
 
-const std::vector<std::string> four_star_characters{
+static const std::vector<std::string> four_star_characters{
     "夏沃蕾",
     "夏洛蒂",
     "菲米尼",
@@ -84,7 +57,7 @@ const std::vector<std::string> four_star_characters{
     "芭芭拉"
 };
 
-const std::vector<std::string> four_star_weapons{
+static const std::vector<std::string> four_star_weapons{
     "弓藏",
     "祭礼弓",
     "绝弦",
@@ -105,7 +78,7 @@ const std::vector<std::string> four_star_weapons{
     "西风剑"
 };
 
-const std::vector<std::string> three_star_weapons{
+static const std::vector<std::string> three_star_weapons{
     "弹弓",
     "神射手之誓",
     "鸦羽弓",
@@ -121,30 +94,4 @@ const std::vector<std::string> three_star_weapons{
     "冷刃"
 };
 
-//WishInfo wish(std::random_device& rd, double five_star_probability, double four_star_probability, double three_star_probability, AllWishInfo& all_wish_info);
-class WishManager {
- private:
-  double m_five_star_probability;
-  double m_four_star_probability;
-  double m_three_star_probability;
-  int m_times;
-  int m_times_of_last_five_star;
-  int m_times_of_last_four_star;
-  bool m_is_get_standard_five_star;
-  bool m_is_get_standard_four_star;
-
- public:
-  WishManager(double five_star_probability,
-              double four_star_probability,
-              double three_star_probability,
-              int times,
-              int times_of_last_five_star,
-              int times_of_last_four_star,
-              bool is_get_standard_five_star,
-              bool is_get_standard_four_star);
-  int wish(WishInfo &wish_info);
-};
-
-}
-
-#endif //WISH_H
+#endif //GIWISH_WISH_H_
